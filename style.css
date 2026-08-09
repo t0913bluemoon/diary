@@ -1,0 +1,860 @@
+:root {
+  --paper: #FAF8F3;
+  --paper-wide: #F1EDE2;
+  --card: #FFFFFF;
+  --ink: #3A4358;
+  --ink-soft: #5E6780;
+  --muted: #A69C8C;
+  --accent: #BE6F65;
+  --accent-soft: #F3E2DE;
+  --danger: #A5645C;
+  --line: #ECE7DA;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.handwritten {
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+}
+
+.shell {
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  position: relative;
+}
+
+@media (min-width: 700px) {
+  body { background: var(--paper-wide); }
+  .shell {
+    max-width: 720px;
+    box-shadow: 0 0 40px rgba(43, 42, 40, 0.10);
+    background: var(--paper);
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    max-width: 980px;
+  }
+}
+
+.num {
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+}
+
+header {
+  padding: 30px 22px 18px;
+}
+
+header .eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+header h1 {
+  margin: 8px 0 6px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+header p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.count-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 20px 22px 6px;
+}
+
+.count-row .count {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.count-row .count b {
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.entries {
+  padding: 0 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 14px;
+}
+
+@media (min-width: 700px) {
+  .entries { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+}
+@media (min-width: 1024px) {
+  .entries { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+}
+
+.empty {
+  margin: 40px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+.empty .big {
+  font-size: 15px;
+  color: var(--ink-soft);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.card {
+  position: relative;
+  background: var(--card);
+  border-radius: 4px;
+  padding: 30px 14px 16px;
+  box-shadow: 0 2px 10px rgba(43, 42, 40, 0.10);
+}
+.card.has-photo {
+  padding-top: 14px;
+}
+.card.rot-l { transform: rotate(-0.6deg); }
+.card.rot-r { transform: rotate(0.6deg); }
+
+.tape {
+  position: absolute;
+  top: -2px;
+  right: 20px;
+  width: 12px;
+  height: 28px;
+  background: var(--accent);
+  opacity: 0.9;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+}
+
+.photo-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.photo-main {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+  background: #EDEAE2;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.photo-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 56px;
+  flex-shrink: 0;
+}
+.photo-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #EDEAE2;
+  cursor: pointer;
+}
+.photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-thumb.more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.card .caption {
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.card .meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.card .date {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.card .meta-actions {
+  display: flex;
+  gap: 4px;
+}
+.card .edit-btn,
+.card .delete-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 4px 6px;
+  text-decoration: underline;
+}
+.card .edit-btn {
+  color: var(--ink-soft);
+}
+
+.fab {
+  position: fixed;
+  right: 24px;
+  bottom: 28px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(180, 66, 60, 0.45);
+  cursor: pointer;
+  z-index: 40;
+}
+.fab:active { transform: scale(0.96); }
+
+@media (min-width: 700px) {
+  .fab { right: calc(50% - 338px); }
+}
+@media (min-width: 1024px) {
+  .fab { right: calc(50% - 468px); }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 42, 40, 0.55);
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+@media (min-width: 700px) {
+  .overlay { align-items: center; padding: 20px; }
+}
+
+.sheet {
+  background: #FFFDF9;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 18px 18px 0 0;
+  padding: 20px 20px 26px;
+}
+
+@media (min-width: 700px) {
+  .sheet { border-radius: 18px; max-height: 85vh; }
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.sheet-header h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+.close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.picker-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  border: 1.5px dashed var(--accent);
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.preview-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.preview-item {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.preview-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(43,42,40,0.7);
+  color: #fff;
+  border: none;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.field-label {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.date-input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.caption-input {
+  width: 100%;
+  min-height: 90px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px;
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  color: var(--ink);
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+.caption-input::placeholder { color: #BDB6A5; }
+
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.save-btn:disabled {
+  background: #D8D1C2;
+  cursor: not-allowed;
+}
+
+.save-error {
+  font-size: 12px;
+  color: var(--danger);
+  margin: -8px 0 12px;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 19, 17, 0.92);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 4px;
+}
+.lightbox .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+/* ---- ビュー切替 & バックアップ ---- */
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  padding: 4px 22px 0;
+  gap: 10px;
+}
+
+.view-toggle {
+  display: flex;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+}
+.view-tab {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.view-tab.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.backup-menu {
+  display: flex;
+  gap: 6px;
+}
+
+header {
+  position: relative;
+}
+.menu-btn {
+  position: absolute;
+  top: 26px;
+  right: 22px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-soft);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+}
+.menu-btn:active { transform: scale(0.94); }
+
+.menu-dropdown {
+  position: absolute;
+  top: 64px;
+  right: 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(43, 42, 40, 0.16);
+  padding: 6px;
+  min-width: 200px;
+  z-index: 45;
+  display: none;
+}
+.menu-dropdown.open { display: block; }
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 11px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+.menu-item:active { background: var(--paper); }
+.menu-item-icon {
+  font-size: 15px;
+  width: 18px;
+  text-align: center;
+}
+
+.backup-toast {
+  margin: 10px 22px 0;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  display: none;
+}
+
+/* ---- カレンダー ---- */
+.calendar-view {
+  padding: 14px 22px 0;
+}
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.cal-header button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+}
+.cal-title {
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 54px;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.cal-cell {
+  position: relative;
+  height: 54px;
+  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 4px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+@media (min-width: 700px) {
+  .cal-grid { grid-auto-rows: 78px; gap: 6px; }
+  .cal-cell { height: 78px; border-radius: 10px; padding: 6px; }
+  .cal-cell .cal-daynum { font-size: 13px; }
+  .cal-weekdays { font-size: 12px; }
+  .cal-title { font-size: 18px; }
+}
+@media (min-width: 1024px) {
+  .cal-grid { grid-auto-rows: 100px; gap: 8px; }
+  .cal-cell { height: 100px; border-radius: 12px; padding: 8px; }
+  .cal-cell .cal-daynum { font-size: 14px; }
+}
+.cal-cell.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+.cal-cell.today {
+  border-color: var(--accent);
+}
+.cal-cell.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.cal-cell .cal-daynum {
+  position: relative;
+  z-index: 2;
+  font-size: 11px;
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  color: var(--ink-soft);
+  background: rgba(255,255,255,0.75);
+  border-radius: 4px;
+  padding: 0 3px;
+}
+.cal-cell.has-entry .cal-daynum {
+  color: var(--ink);
+  font-weight: 700;
+}
+.cal-cell .cal-thumb {
+  position: absolute;
+  inset: 0;
+}
+.cal-cell .cal-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cal-cell .cal-dot {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cal-day-entries {
+  padding: 4px 0 10px;
+}
+.cal-day-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-weight: 700;
+  margin: 12px 0 10px;
+}
+.cal-day-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 2;
+  margin: 18px 0;
+}
+.cal-quick-add {
+  display: block;
+  margin: 6px auto 0;
+  border: 1.5px dashed var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* ---- 日記帳切替 ---- */
+.notebook-row {
+  padding: 8px 22px 0;
+  position: relative;
+}
+.notebook-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  max-width: 100%;
+}
+.notebook-btn #notebook-name {
+  max-width: 55vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.notebook-btn .caret {
+  color: var(--muted);
+  font-size: 11px;
+}
+.notebook-dropdown {
+  position: absolute;
+  top: 46px;
+  left: 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(43, 42, 40, 0.16);
+  padding: 6px;
+  min-width: 230px;
+  max-width: 80vw;
+  z-index: 45;
+  display: none;
+}
+.notebook-dropdown.open { display: block; }
+.notebook-list {
+  max-height: 45vh;
+  overflow-y: auto;
+  margin-bottom: 4px;
+}
+.notebook-item-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: 8px;
+}
+.notebook-item-row.active {
+  background: var(--accent-soft);
+}
+.notebook-item {
+  flex: 1;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: 9px 8px;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: inherit;
+}
+.notebook-item-action {
+  border: none;
+  background: none;
+  font-size: 13px;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+}
+.notebook-btn .nb-current-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.nb-color-dot {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(43, 42, 40, 0.15);
+  margin: 0 8px 0 4px;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.color-swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 10px 10px 30px;
+}
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.color-swatch.selected {
+  border-color: var(--ink);
+}
+
+/* ---- ロック画面 ---- */
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--paper);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+.lock-card {
+  text-align: center;
+  max-width: 280px;
+}
+.lock-icon {
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+.lock-title {
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+.lock-input {
+  width: 160px;
+  text-align: center;
+  letter-spacing: 14px;
+  font-size: 22px;
+  padding: 10px 0 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+}
+.lock-error {
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 12px;
+}
